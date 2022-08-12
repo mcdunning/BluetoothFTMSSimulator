@@ -1,4 +1,5 @@
 import abc
+from app.enums import FrameTypes
 
 
 class FrameSimulatorDataModelInterface(metaclass=abc.ABCMeta):
@@ -13,6 +14,15 @@ class FrameSimulatorDataModelInterface(metaclass=abc.ABCMeta):
     def get_data_model() -> dict:
         """Create a dictionary of the contents in the data model"""
         raise NotImplementedError
+
+
+class FrameData(FrameSimulatorDataModelInterface):
+    selected_frame = -1
+
+    @staticmethod
+    def get_data_model() -> dict:
+        return {'selected_frame': FrameData.selected_frame,
+                'supported_frames': {frame_type.name: frame_type.value for frame_type in FrameTypes}}
 
 
 class BLEDeviceData(FrameSimulatorDataModelInterface):

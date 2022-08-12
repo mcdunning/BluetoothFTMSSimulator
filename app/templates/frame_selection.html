@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Frame Type</h3>
+  <form>
+    <label for="frame_types">Choose a frame type</label>
+    <br>
+    <select id="frame_types" name="frame_types">
+      {% for frame_type in frame_types.supported_frames %}
+        <option value='{{frame_type.value}}'>{{frame_type}}</option>
+      {% endfor %}
+    </select>
+    <br><br><br><br>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
