@@ -1,6 +1,6 @@
 from flask import render_template
 from app import app
-from app.data_models import BLEDeviceData, UserData, WorkoutData
+from app.data_models import BLEDeviceData, UserData, WorkoutData, FrameData
 
 
 @app.route('/')
@@ -20,8 +20,6 @@ def index():
     WorkoutData.incline = 1.0
     WorkoutData.pace = 10
 
-    return render_template('index.html',
-                           title='Home',
-                           ble_device=BLEDeviceData.get_data_model(),
-                           user=UserData.get_data_model(),
-                           fitness_device=WorkoutData.get_data_model())
+    return render_template('frame_selection.html',
+                           title='Frame Selection',
+                           frame_types=FrameData.get_data_model())
