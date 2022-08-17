@@ -6,10 +6,11 @@ def calculate_pace():
 
 
 class CardioFrames:
+    min_workout_time = 5
     max_workout_time = 120
 
     def __init__(self, workout_time):
-        if 0 < workout_time <= self.max_workout_time:
+        if self.min_workout_time <= workout_time <= self.max_workout_time:
             WorkoutData.workout_time = workout_time
 
     def start_workout(self):

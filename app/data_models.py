@@ -1,5 +1,6 @@
 import abc
-from app.enums import FrameTypes
+
+from app.enums import Genders, FrameTypes
 
 
 class FrameSimulatorDataModelInterface(metaclass=abc.ABCMeta):
@@ -17,12 +18,12 @@ class FrameSimulatorDataModelInterface(metaclass=abc.ABCMeta):
 
 
 class FrameData(FrameSimulatorDataModelInterface):
-    selected_frame = -1
+    selected_frame = FrameTypes.Frame.value
+    workout_state = 0
 
     @staticmethod
     def get_data_model() -> dict:
-        return {'selected_frame': FrameData.selected_frame,
-                'supported_frames': {frame_type.name: frame_type.value for frame_type in FrameTypes}}
+        return {'selected_frame': FrameData.selected_frame}
 
 
 class BLEDeviceData(FrameSimulatorDataModelInterface):
@@ -34,29 +35,35 @@ class BLEDeviceData(FrameSimulatorDataModelInterface):
 
 
 class UserData(FrameSimulatorDataModelInterface):
+    MIN_AGE = 13
+    DEFAULT_WEIGHT = 150.0
+
     first_name = ""
     last_name = ""
-    gender = ""
-    age = 0
-    weight = 150.0
+    gender = Genders.Male.value
+    age = MIN_AGE
+    weight = DEFAULT_WEIGHT
 
     @staticmethod
     def get_data_model() -> dict:
         return {'first_name': UserData.first_name,
                 'last_name': UserData.last_name,
-                'gender': UserData.gender,
+                'gender': {UserData.gender: Genders.value(UserData.gender)},
                 'age': UserData.age,
                 'weight': UserData.weight}
 
 
 class WorkoutData(FrameSimulatorDataModelInterface):
-    workout_time = 0
+    default_workout_time = 30
+
+    workout_time = default_workout_time
     elapsed_time = 0
     remaining_time = 0
 
     speed = 0
     incline = 0.0
     pace = 0
+    resistance = 0
 
     @staticmethod
     def get_data_model() -> dict:
@@ -65,4 +72,5 @@ class WorkoutData(FrameSimulatorDataModelInterface):
                 'remaining_time': WorkoutData.workout_time - WorkoutData.elapsed_time,
                 'speed': WorkoutData.speed,
                 'incline': WorkoutData.incline,
-                'pace': WorkoutData.pace}
+                'pace': WorkoutData.pace,
+                'resistance': WorkoutData.resistance}

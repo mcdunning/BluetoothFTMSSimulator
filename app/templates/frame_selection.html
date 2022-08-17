@@ -2,15 +2,18 @@
 
 {% block content %}
   <h3>Frame Type</h3>
-  <form>
-    <label for="frame_types">Choose a frame type</label>
-    <br>
-    <select id="frame_types" name="frame_types">
-      {% for frame_type in frame_types.supported_frames %}
-        <option value='{{frame_type.value}}'>{{frame_type}}</option>
+  <form action="" method="post" name="frame_selection">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.selected_frame_id.label }}
+    </p>
+    <p>
+    {{ form.selected_frame_id }}
+      {% for error in form.selected_frame_id.errors %}
+        <span style="color:red;">[{{ error }}]</span>
       {% endfor %}
-    </select>
-    <br><br><br><br>
-    <input type="submit" value="Submit">
+    </p>
+
+    <p>{{form.workout_selection}}</p>
   </form>
 {% endblock %}
