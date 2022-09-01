@@ -18,6 +18,11 @@ class Genders(IntEnum):
     Female = 1
     Other = 2
 
+    @classmethod
+    def is_valid_gender_type(cls, selected_gender):
+        return Genders.Gender != selected_gender
+
+
 @unique
 class WorkoutState(IntEnum):
     Initializing = 0

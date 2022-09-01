@@ -14,7 +14,7 @@ def index():
 
     UserData.first_name = "Matt"
     UserData.last_name = "Dunning"
-    UserData.gender = "male"
+    UserData.gender = Genders.Male
     UserData.age = "41"
     UserData.weight = "205"
 
@@ -53,21 +53,9 @@ def workout_selection():
                                 frame_data_form=dict(workout_time=WorkoutData.workout_time,
                                                      speed=WorkoutData.speed,
                                                      incline=WorkoutData.incline,
-                                                     resistance=WorkoutData.resistance))
+                                                     resistance=WorkoutData.resistance,
+                                                     selected_frame=FrameData.selected_frame))
     form.user_data_form.genders.choices = [(gender.value, gender.name) for gender in Genders]
-
-    # This call may cause rendering and/or validation problems in the future.
-    # Seems to just remove the fields based on selected frame types which is the desired outcome.
-    if FrameTypes.Treadmill.value == FrameData.selected_frame:
-        form.frame_data_form.__delitem__('resistance')
-    else:
-        form.frame_data_form.__delitem__('speed')
-        form.frame_data_form.__delitem__('incline')
-
-    if form.start_workout.data and form.validate_on_submit():
-        return redirect('/index')
-    elif form.frame_selection.data:
-        return redirect('/frame_selection')
 
     return render_template('workout_selection.html',
                            title="Workout Selection",

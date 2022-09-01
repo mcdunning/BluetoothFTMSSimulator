@@ -40,7 +40,7 @@ class UserData(FrameSimulatorDataModelInterface):
 
     first_name = ""
     last_name = ""
-    gender = Genders.Male.value
+    gender = Genders.Male
     age = MIN_AGE
     weight = DEFAULT_WEIGHT
 
@@ -48,7 +48,7 @@ class UserData(FrameSimulatorDataModelInterface):
     def get_data_model() -> dict:
         return {'first_name': UserData.first_name,
                 'last_name': UserData.last_name,
-                'gender': {UserData.gender: Genders.value(UserData.gender)},
+                'gender': UserData.gender,
                 'age': UserData.age,
                 'weight': UserData.weight}
 
